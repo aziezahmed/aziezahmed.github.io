@@ -1,6 +1,5 @@
-aziezahmed.github.io
-====================
+# aziezahmed.github.io
 
-My GitHub hosted profile Page
+My GitHub hosted profile page
 
-http://aziezahmed.github.io/
+* http://aziezahmed.github.io/
