@@ -1,66 +1,72 @@
 <!doctype html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Aziez Ahmed Chawdhary</title>
+		<meta name="description" content="GitHub Page for Aziez Ahmed Chawdhary">
+		<meta name="author" content="Aziez Ahmed Chawdhary">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.css" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+		<style>
+		body {
+			border-top: solid .3rem #0074d9;
+			padding-top: 20px;
+		}
+		[v-cloak] {
+			display: none;
+		}
+		</style>
+	</head>
+	<body>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h1>Aziez Ahmed Chawdhary</h1>
+					<p class="lead">Some personal programming projects</p>
+				</div>
+			</div>
+			<div id="git-table" class="row">
+				<div class="col">
+					<span v-if="!$data" class="loader loader-xl"></span>
+					<table v-cloak> 
+						<thead>
+							<tr>
+								<th>Repository</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody >
+							<tr v-for="repository in repositories">
+								<td><a v-bind:href="repository.html_url">{{repository.name}}</a>  <i v-if="repository.fork" class="text-secondary fa fa-code-branch"></i>  </td>
+								<td>{{repository.description}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 
-<head>
-    <meta charset="utf-8">
-    <title>Aziez Ahmed Chawdhary</title>
-    <meta name="description" content="GitHub Page for Aziez Ahmed Chawdhary">
-    <meta name="author" content="Aziez Ahmed Chawdhary">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.css" />
-    <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
-    <style>
-        body {
-            border-top: solid .3rem #0074d9;
-            padding-top: 20px;
-        }
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.js"></script>
+		<script>
+	
+		$.ajax({
+			url: "https://api.github.com/users/aziezahmed/repos",
+			jsonp: true,
+			method: "GET",
+			dataType: "json",
+			success: function(res) {
+				console.log(res);
+				var gitTable = new Vue({
+					el: '#git-table',
+					data: {repositories : res }
+				});
+			}
+		});
 
-        [v-cloak] {
-            display: none;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Aziez Ahmed Chawdhary</h1>
-        <p class="lead">Some personal programming projects</p>
-        <div class="row">
-            <table id="git-table" v-cloak>
-                <thead>
-                    <tr>
-                        <th>Repository</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="repo in items">
-                        <td><a v-bind:href="repo.html_url">{{repo.name}}</a> <i v-if="repo.fork" class="text-secondary fa fa-code-branch"></i> </td>
-                        <td>{{repo.description}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.js"></script>
-    <script>
-        $.ajax({
-            url: "https://api.github.com/users/aziezahmed/repos",
-            jsonp: true,
-            method: "GET",
-            dataType: "json",
-            success: function(res) {
-                console.log(res);
-                var gitTable = new Vue({
-                    el: '#git-table',
-                    data: {
-                        items: res
-                    }
-                });
-            }
-        });
-    </script>
-</body>
-
+		</script>
+	</body>
 </html>
+
