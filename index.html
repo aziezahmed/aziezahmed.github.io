@@ -1,64 +1,62 @@
 <!doctype html>
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>Aziez Ahmed Chawdhary</title>
-  <meta name="description" content="GitHub Page for Aziez Ahmed Chawdhary">
-  <meta name="author" content="Aziez Ahmed Chawdhary">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.css" />
-  <style>
-  body {
-    border-top: solid .3rem #0074d9;
-    padding-top: 20px;
-  }
-
-  </style>
-</head>
-
-<body>
-
-<div class="container">
-  <h1>Aziez Ahmed Chawdhary</h1>
-  <p class="lead">Some personal programming projects</p>
-
-  <div class="row">
-    <div class="col">
-
-      <h3><a href="https://github.com/aziezahmed/podcast-player">podcast-player</a></h3>
-      <p>A command line podcast player, written in Python.</p>
-
-
-      <h3><a href="https://github.com/aziezahmed/newsapi-cli">newsapi-cli</a></h3>
-      <p>Python command line application for viewing news headlines from various sources. Built with news headlines from newsapi.org.</p>
-
-      <h3><a href="https://github.com/aziezahmed/openweathermap-cli">openweathermap-cli</a></h3>
-      <p>A command line application for displaying weather details. Written in Python, built with weather data from openweathermap.org.</p>
-
-      <h3><a href="https://github.com/aziezahmed/yahoofinance-cli">yahoofinance-cli</a></h3>
-      <p>A command line application for displaying stock prices and other finance data. Written in Python, built with financial data from Yahoo!.</p>
-
-      <h3><a href="https://github.com/aziezahmed/my-portfolio">my-portfolio</a></h3>
-      <p>A web application for monitoring the performance of your stocks and shares portfolio. Add details of your financial portfolio and see the daily performance. Built with AngularJS with financial data from Yahoo!
-      <br><a href="http://aziezahmed.github.io/my-portfolio">See "My Portfolio" demo!</a></p>
-
-      <h3><a href="https://github.com/aziezahmed/flickr-gallery">flickr-gallery</a></h3>
-      <p>A web application that takes a flickr feed and displays the thumbnails on the page. Made with Bootstrap, Backbone.js, Require.js and Underscore.js Templates
-      <br>
-      <a href="http://aziezahmed.github.io/flickr-gallery">See "Flickr Gallery" demo!</a></p>
-
-      <h3><a href="https://github.com/aziezahmed/kodi-remote">kodi-remote</a></h3>
-      <p>A web interface remote for osmc or kodi.</p>
-
-      <h3><a href="https://github.com/aziezahmed/photo-gallery">photo-gallery</a></h3>
-      <p>A PHP page for turning a http web directory listing into a slideshow for your photos.</p>
-
-    </div>
-  </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.js"></script>
-</body>
+<html ng-app="gitApp" lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Aziez Ahmed Chawdhary</title>
+      <meta name="description" content="GitHub Page for Aziez Ahmed Chawdhary">
+      <meta name="author" content="Aziez Ahmed Chawdhary">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+      <style>
+         body {
+         border-top: solid .3rem #0074d9;
+         padding-top: 20px;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1>Aziez Ahmed Chawdhary</h1>
+         <p class="lead">Some personal programming projects</p>
+         <div ng-controller="GitController">
+            <div class="row">
+               <table>
+                  <thead>
+                     <tr>
+                        <th>Repository</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="repo in repos">
+                        <td><a href="{{repo.html_url}}">{{repo.name}}</a></td>
+                        <td>{{repo.description}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+               <a href="https://github.com/aziezahmed" class="button button-sm"><i class="fa fa-github"></i> GitHub</a>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta24/shoelace.js"></script>
+      <script>
+      angular.module('gitApp', []).controller('GitController', ['$scope', '$http',
+        function ($scope, $http) {
+          $http({
+            method: 'JSONP',
+            url: 'https://api.github.com/users/aziezahmed/repos',
+            params: {
+              'dataType': 'json',
+            }
+          }).then(function (repos) {
+          console.info(repos);
+            $scope.repos = repos.data.data;
+          })
+        }
+      ]);
+     </script>
+   </body>
 </html>
+
